@@ -3,7 +3,7 @@ package com.generation.melihealth.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -19,17 +19,13 @@ public class Produto {
     @Size(max = 100)
     private String nome;
 
-    @NotBlank
-    @Size(max = 100)
-    private String especialidade;
-
     @Size(max = 200)
     private String descricao;
 
-    @UpdateTimestamp
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDate dataInicio;
 
-    @UpdateTimestamp
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDate dataFim;
 
 
@@ -47,14 +43,6 @@ public class Produto {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getEspecialidade() {
-        return especialidade;
-    }
-
-    public void setEspecialidade(String especialidade) {
-        this.especialidade = especialidade;
     }
 
     public String getDescricao() {
