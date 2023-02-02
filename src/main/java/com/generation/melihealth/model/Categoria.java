@@ -13,7 +13,7 @@ public class Categoria {
     private Long id;
 
     @NotBlank
-    @Size(min = 5 , max = 100)
+    @Size(max = 100)
     private String tipo;
 
     public Long getId() {
