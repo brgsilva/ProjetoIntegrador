@@ -31,8 +31,7 @@ public class Produto {
 
     @UpdateTimestamp
     private LocalDate dataFim;
-    private String foto;
-    private boolean tipo;
+
 
     public Long getId() {
         return id;
@@ -80,21 +79,5 @@ public class Produto {
 
     public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
-    public boolean isTipo() {
-        return tipo;
-    }
-
-    public void setTipo(boolean tipo) {
-        this.tipo = tipo;
     }
 }
