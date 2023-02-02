@@ -1,11 +1,12 @@
-package model;
+package com.generation.melihealth.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+
 @Entity
 @Table(name = ("tb_produto"))
 public class Produto {
@@ -18,18 +19,14 @@ public class Produto {
     @Size(max = 100)
     private String nome;
 
-    @Size(max = 100)
-    private String especiadade;
-
     @Size(max = 200)
     private String descricao;
 
-    @UpdateTimestamp
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDate dataInicio;
 
-    @UpdateTimestamp
-    private LocalDate dataFim;
-
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDate dataFinal;
 
 
     public Long getId() {
@@ -48,13 +45,6 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getEspeciadade() {
-        return especiadade;
-    }
-
-    public void setEspeciadade(String especiadade) {
-        this.especiadade = especiadade;
-    }
     public String getDescricao() {
         return descricao;
     }
@@ -71,12 +61,11 @@ public class Produto {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDate getDataFim() {
-        return dataFim;
+    public LocalDate getDataFinal() {
+        return dataFinal;
     }
 
-    public void setDataFim(LocalDate dataFim) {
-        this.dataFim = dataFim;
+    public void setDataFinal(LocalDate dataFinal) {
+        this.dataFinal = dataFinal;
     }
-
 }
