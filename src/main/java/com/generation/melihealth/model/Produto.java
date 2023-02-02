@@ -37,10 +37,6 @@ public class Produto {
     private LocalDate dataFim;
 
 
-    private String foto;
-
-    @NotNull
-    private boolean tipo;
 
     public Long getId() {
         return id;
@@ -82,21 +78,6 @@ public class Produto {
         this.dataFim = dataFim;
     }
 
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
-    public boolean isTipo() {
-        return tipo;
-    }
-
-    public void setTipo(boolean tipo) {
-        this.tipo = tipo;
-    }
 
     public String getDescricao() {
         return descricao;
