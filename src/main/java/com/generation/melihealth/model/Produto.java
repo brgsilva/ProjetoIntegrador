@@ -1,14 +1,12 @@
 package com.generation.melihealth.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = ("tb_produto"))
@@ -22,7 +20,7 @@ public class Produto {
 
     @NotBlank
     @Size(max = 100)
-    private String nome;
+    private String especialidade;
 
 
     @Size(max = 250)
@@ -34,7 +32,17 @@ public class Produto {
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDate dataFim;
 
+    @ManyToOne
+    @JsonIgnoreProperties("produto")
+    private Categoria categoria;
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public Long getId() {
         return id;
@@ -44,12 +52,12 @@ public class Produto {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getEspecialidade() {
+        return especialidade;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
     }
 
 
