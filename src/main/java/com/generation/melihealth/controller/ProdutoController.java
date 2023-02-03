@@ -2,6 +2,7 @@ package com.generation.melihealth.controller;
 
 import com.generation.melihealth.model.Produto;
 import com.generation.melihealth.repository.ProdutoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -34,5 +35,10 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoRepository.findAllByEspecialidadeContainingIgnoreCase(especialidade));
 
     }
+    @PostMapping
+    public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(produtoRepository.save(produto));
+        }
 
 }

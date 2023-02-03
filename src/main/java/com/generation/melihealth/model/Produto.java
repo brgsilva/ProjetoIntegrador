@@ -26,7 +26,7 @@ public class Produto {
     private LocalDate dataInicio;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDate dataFinal;
+    private LocalDate dataFim;
 
 
     public Long getId() {
@@ -61,11 +61,11 @@ public class Produto {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDate getDataFinal() {
-        return dataFinal;
+    public LocalDate getDataFim() {
+        return dataFim;
     }
 
-    public void setDataFinal(LocalDate dataFinal) {
-        this.dataFinal = dataFinal;
+    public void setDataFim(LocalDate dataFinal) {
+        this.dataFim = dataFinal;
     }
 }
