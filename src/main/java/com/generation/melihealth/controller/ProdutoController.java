@@ -42,5 +42,13 @@ public class ProdutoController {
                 .body(produtoRepository.save(produto));
     }
 
+    @PutMapping
+    public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto){
+        getById(produto.getId());
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(produtoRepository.save(produto));
+
+    }
+
 
 }
