@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/produtos")
@@ -46,9 +48,19 @@ public class ProdutoController {
     @PutMapping
     public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto) {
         getById(produto.getId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
+        return produtoRepository.findById(produto.getId()).map(resposta -> ResponseEntity.status(HttpStatus.OK)
+                .body(produtoRepository.save(produto))).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        Optional<Produto> produto = produtoRepository.findById(id);
+        if(produto.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        produtoRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
