@@ -1,0 +1,27 @@
+package com.generation.melihealth.controller;
+
+import com.generation.melihealth.model.Categoria;
+import com.generation.melihealth.repository.CategoriaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+
+@RestController
+@RequestMapping("/categorias")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+public class CategoriaController {
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
+    public ResponseEntity<List<Categoria>> getAll(){
+        return ResponseEntity.ok(categoriaRepository.findAll());
+    }
+
+
+}
