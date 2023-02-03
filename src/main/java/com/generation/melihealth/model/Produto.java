@@ -19,7 +19,7 @@ public class Produto {
 
     @NotBlank
     @Size(max = 100)
-    private String nome;
+    private String especialidade;
 
 
     @Size(max = 250)
@@ -41,12 +41,12 @@ public class Produto {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getEspecialidade() {
+        return especialidade;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setEspecialidade(String nome) {
+        this.especialidade = especialidade;
     }
 
 
