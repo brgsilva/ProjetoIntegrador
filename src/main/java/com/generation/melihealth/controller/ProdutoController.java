@@ -49,7 +49,7 @@ public class ProdutoController {
     @PutMapping
     public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto){
         return produtoRepository.findById(produto.getId())
-                .map(reponse -> ResponseEntity.status(HttpStatus.OK)
+                .map(response -> ResponseEntity.status(HttpStatus.OK)
                     .body(produtoRepository.save(produto)))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }

@@ -1,5 +1,6 @@
 package com.generation.melihealth.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -30,6 +31,12 @@ public class Produto {
 
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDate dataFim;
+
+    //chave estrangeira - relação bidirecional
+    @ManyToOne()
+    @JsonIgnoreProperties("produto")
+    private Categoria categoria;
+    // Essa variavel será foreingkey
 
 
 
@@ -72,5 +79,13 @@ public class Produto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Categoria getCategoria() {
+        return this.categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }
