@@ -1,5 +1,6 @@
 package com.generation.melihealth.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -28,6 +29,9 @@ public class Produto {
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDate dataFim;
 
+    @ManyToOne
+    @JsonIgnoreProperties("produto")
+    private Categoria categoria;
 
     public Long getId() {
         return id;
@@ -67,5 +71,13 @@ public class Produto {
 
     public void setDataFim(LocalDate dataFinal) {
         this.dataFim = dataFinal;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }

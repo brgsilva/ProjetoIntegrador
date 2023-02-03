@@ -1,6 +1,7 @@
 package com.generation.melihealth.controller;
 
 import com.generation.melihealth.model.Produto;
+import com.generation.melihealth.repository.CategoriaRepository;
 import com.generation.melihealth.repository.ProdutoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class ProdutoController {
 
     @Autowired
     private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     @GetMapping
     public ResponseEntity<List<Produto>> getAll() {
@@ -46,10 +50,15 @@ public class ProdutoController {
     }
 
     @PutMapping
-    public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto) {
-        getById(produto.getId());
-        return produtoRepository.findById(produto.getId()).map(resposta -> ResponseEntity.status(HttpStatus.OK)
-                .body(produtoRepository.save(produto))).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto){
+        if(produtoRepository.existsById(produto.getId())){
+            if(categoriaRepository.existsById(produto.getCategoria().getId())){
+                return ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(produto));
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
     }
 
     @DeleteMapping("/{id}")

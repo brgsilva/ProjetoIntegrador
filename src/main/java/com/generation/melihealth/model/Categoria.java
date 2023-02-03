@@ -1,8 +1,12 @@
 package com.generation.melihealth.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = ("tb_categoria"))
@@ -15,6 +19,9 @@ public class Categoria {
     @Size(max = 100)
     private String tipo;
 
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.REMOVE) //configuração de remoção em cascata
+    @JsonIgnoreProperties("categoria")
+    private List<Produto> produto = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -30,5 +37,13 @@ public class Categoria {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public List<Produto> getProduto() {
+        return produto;
+    }
+
+    public void setProduto(List<Produto> produtos) {
+        this.produto = produtos;
     }
 }
