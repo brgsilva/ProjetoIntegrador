@@ -29,6 +29,13 @@ public class ProdutoController {
     }
 
 
+    @GetMapping("/especialidade/{especialidade}")
+    public ResponseEntity<List<Produto>> getByEspecialidade(@PathVariable String especialidade){
+        return ResponseEntity.ok(produtoRepository
+                .findAllByEspecialidadeContainingIgnoreCase(especialidade));
+    }
+
+
 
 
 }
