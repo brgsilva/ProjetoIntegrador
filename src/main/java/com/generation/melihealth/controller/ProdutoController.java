@@ -20,25 +20,35 @@ public class ProdutoController {
     private ProdutoRepository produtoRepository;
 
     @GetMapping
-    public ResponseEntity<List<Produto>> getAll(){
+    public ResponseEntity<List<Produto>> getAll() {
         return ResponseEntity.ok().body(produtoRepository.findAll());
 
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Produto> getById(@PathVariable Long id){
+    public ResponseEntity<Produto> getById(@PathVariable Long id) {
         return produtoRepository.findById(id)
                 .map(resposta -> ResponseEntity.ok(resposta))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
+
     @GetMapping("/especialidade/{especialidade}")
-    public ResponseEntity<List<Produto>> getByEspecialidade(@PathVariable String especialidade){
+    public ResponseEntity<List<Produto>> getByEspecialidade(@PathVariable String especialidade) {
         return ResponseEntity.ok(produtoRepository.findAllByEspecialidadeContainingIgnoreCase(especialidade));
 
     }
+
     @PostMapping
     public ResponseEntity<Produto> post(@Valid @RequestBody Produto produto) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(produtoRepository.save(produto));
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
+    }
+
+    @PutMapping
+    public ResponseEntity<Produto> put(@Valid @RequestBody Produto produto) {
+        getById(produto.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
+    }
+
+
 
 }
