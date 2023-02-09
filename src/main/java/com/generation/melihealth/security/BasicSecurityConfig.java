@@ -36,7 +36,7 @@ public class BasicSecurityConfig {
 
         http
             .authorizeHttpRequests((auth) -> auth
-            .requestMatchers("/produtos/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/produtos/**").permitAll()
                 //.requestMatchers("/").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated())
@@ -44,7 +44,4 @@ public class BasicSecurityConfig {
 
             return http.build();
     }
-
-
-
 }
