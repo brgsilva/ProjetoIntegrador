@@ -29,9 +29,13 @@ public class Produto {
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDate dataFim;
 
-    @ManyToOne()
+    @ManyToOne
     @JsonIgnoreProperties("produto")
     private Categoria categoria;
+
+    @ManyToOne
+    @JsonIgnoreProperties("produto")
+    private Usuario usuario;
 
 
     public Long getId() {
@@ -80,5 +84,13 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
