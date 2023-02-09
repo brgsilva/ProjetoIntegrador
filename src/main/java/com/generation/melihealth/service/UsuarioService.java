@@ -19,7 +19,7 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    private Optional<Usuario> cadastrarUsuario(Usuario usuario){
+    public Optional<Usuario> cadastrarUsuario(Usuario usuario){
 
         if (usuarioRepository.findByUsuario(usuario.getEmail()).isPresent()){
             return Optional.empty();
