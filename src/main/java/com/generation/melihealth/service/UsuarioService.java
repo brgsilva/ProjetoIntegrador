@@ -42,7 +42,7 @@ public class UsuarioService {
         return Optional.empty();
     }
 
-    public Optional<UsuarioLogin> autenticarSenha(Optional<UsuarioLogin> usuarioLogin){
+    public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin){
         Optional<Usuario> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getEmail());
 
         if(usuario.isPresent()){
