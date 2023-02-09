@@ -38,6 +38,11 @@ public class Produto {
     private Categoria categoria;
     // Essa variavel será foreingkey
 
+    //chave estrangeira - relação bidirecional
+    @ManyToOne()
+    @JsonIgnoreProperties("produto")
+    private Usuario usuario;
+    // Essa variavel será foreingkey
 
 
     public Long getId() {
@@ -72,7 +77,6 @@ public class Produto {
         this.dataFim = dataFim;
     }
 
-
     public String getDescricao() {
         return descricao;
     }
@@ -88,4 +92,8 @@ public class Produto {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
+    public Usuario getUsuario() { return usuario; }
+
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 }
