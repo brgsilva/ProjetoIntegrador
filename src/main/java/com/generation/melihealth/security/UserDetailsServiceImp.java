@@ -23,8 +23,8 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
         if(usuario.isPresent()){
             return new UserDetailsImpl(usuario.get());
-            }else{
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }else{
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
     }
