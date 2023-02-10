@@ -23,11 +23,11 @@ public class UsuarioService {
 
     public Optional<Usuario> cadastrarUsuario(Usuario usuario){
 
-        if(usuarioRepository.findByEmail(usuario.getEmail()).isPresent()){
+        if(usuarioRepository.findByEmail(usuario.getEmail()).isPresent())
             return Optional.empty();
-        }else{
-            usuario.setSenha(criptografarSenha(usuario.getSenha()));
-        }
+
+        usuario.setSenha(criptografarSenha(usuario.getSenha()));
+
         return Optional.of(usuarioRepository.save(usuario));
 
     }
@@ -37,9 +37,9 @@ public class UsuarioService {
         if (usuarioRepository.findById(usuario.getId()).isPresent()){
             Optional<Usuario> buscarUsuario = usuarioRepository.findByEmail(usuario.getEmail());
 
-            if((buscarUsuario.isPresent()) && (buscarUsuario.get().getId() != usuario.getId())){
+            if((buscarUsuario.isPresent()) && (buscarUsuario.get().getId() != usuario.getId()))
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Usuário já existe", null);
-            }
+
             usuario.setSenha(criptografarSenha(usuario.getSenha()));
 
             return Optional.ofNullable(usuarioRepository.save(usuario));
