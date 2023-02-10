@@ -19,12 +19,18 @@ public class Categoria {
     @NotBlank
     @Size(max = 100)
     private String tipo;
-    //Ligação entre tabelas
+
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("categoria")
     private List<Produto> produto = new ArrayList<>();
-    //fim ligação
 
+    public List<Produto> getProduto() {
+        return produto;
+    }
+
+    public void setProduto(List<Produto> produto) {
+        this.produto = produto;
+    }
 
     public Long getId() {
         return id;
@@ -40,13 +46,5 @@ public class Categoria {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public List<Produto> getProduto() {
-        return this.produto;
-    }
-
-    public void setProduto(List<Produto> produto) {
-        this.produto = produto;
     }
 }

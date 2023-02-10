@@ -72,6 +72,8 @@ public class Produto {
         this.especialidade = especialidade;
     }
 
+
+
     public LocalDate getDataInicio() {
         return dataInicio;
     }
@@ -87,6 +89,7 @@ public class Produto {
     public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
     }
+
 
     public String getDescricao() {
         return descricao;

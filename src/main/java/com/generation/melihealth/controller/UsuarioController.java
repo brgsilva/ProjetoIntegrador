@@ -30,7 +30,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getById(@PathVariable Long id){
+    public  ResponseEntity<Usuario>getById(@PathVariable Long id){
         return usuarioRepository.findById(id)
                 .map(resposta -> ResponseEntity.ok(resposta))
                 .orElse(ResponseEntity.notFound().build());
@@ -61,4 +61,3 @@ public class UsuarioController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 }
-
