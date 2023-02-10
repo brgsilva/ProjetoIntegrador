@@ -3,9 +3,11 @@ package com.generation.melihealth.service;
 import com.generation.melihealth.model.Usuario;
 import com.generation.melihealth.model.UsuarioLogin;
 import com.generation.melihealth.repository.UsuarioRepository;
+
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,19 +23,18 @@ public class UsuarioService {
 
     public Optional<Usuario> cadastrarUsuario(Usuario usuario){
 
-        if(usuarioRepository.findByUsuario(usuario.getEmail()).isPresent()){
+        if(usuarioRepository.findByEmail(usuario.getEmail()).isPresent()){
             return Optional.empty();
-        }else{
-            usuario.setSenha(criptografarSenha(usuario.getSenha()));
         }
-        return Optional.of((usuarioRepository.save(usuario)));
+        usuario.setSenha(criptografarSenha(usuario.getSenha()));
+        return Optional.of(usuarioRepository.save(usuario));
     }
 
     public Optional<Usuario> atualizarUsuario(Usuario usuario){
         if(usuarioRepository.findById(usuario.getId()).isPresent()){
-            Optional<Usuario> buscarUsuario = usuarioRepository.findByUsuario(usuario.getEmail());
+            Optional<Usuario> buscarUsuario = usuarioRepository.findByEmail(usuario.getEmail());
 
-            if((buscarUsuario.isPresent()) && buscarUsuario.get().getId() != usuario.getId()){
+            if((buscarUsuario.isPresent()) && (buscarUsuario.get().getId() != usuario.getId())){
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe", null);
             }
             usuario.setSenha(criptografarSenha(usuario.getSenha()));
@@ -43,7 +44,7 @@ public class UsuarioService {
     }
 
     public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin){
-        Optional<Usuario> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getEmail());
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioLogin.get().getEmail());
 
         if(usuario.isPresent()){
             if(compararSenhas(usuarioLogin.get().getSenha(), usuario.get().getSenha())){
@@ -52,7 +53,7 @@ public class UsuarioService {
                usuarioLogin.get().setFoto(usuario.get().getFoto());
                usuarioLogin.get().setTipo(usuario.get().getTipo());
                usuarioLogin.get().setToken(gerarBasicToken(usuarioLogin.get().getEmail(), usuarioLogin.get().getSenha()));
-               usuarioLogin.get().setSenha((usuario.get().getSenha()));
+               usuarioLogin.get().setSenha(usuario.get().getSenha());
 
                return usuarioLogin;
             }
@@ -60,14 +61,14 @@ public class UsuarioService {
         return Optional.empty();
     }
 
-    private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder.matches(senhaDigitada, senhaBanco);
-    }
-
     private String criptografarSenha(String senha) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(senha);
+    }
+
+    private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(senhaDigitada, senhaBanco);
     }
 
     private String gerarBasicToken(String email, String senha) {

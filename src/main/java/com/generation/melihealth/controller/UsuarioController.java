@@ -24,7 +24,7 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository repository;
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Usuario>> getAll(){
         return ResponseEntity.ok(repository.findAll());
     }
@@ -36,7 +36,7 @@ public class UsuarioController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/logar")
+   @GetMapping("/logar")
     public ResponseEntity<UsuarioLogin> login(@RequestBody Optional<UsuarioLogin> usuarioLogin){
         return usuarioService.autenticarUsuario(usuarioLogin)
                 .map(response -> ResponseEntity.ok(response))
