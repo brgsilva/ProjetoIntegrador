@@ -26,7 +26,7 @@ public class Usuario {
     @Email(message = "Digite um Email válido")
     private String email;
 
-    @NotNull(message = "O Atributo Senha é Obrigatório")
+    @NotBlank(message = "O Atributo Senha é Obrigatório")
     @Size(min = 8, message = "A senha deve ter minimo 8 caracteres")
     private String senha;
 

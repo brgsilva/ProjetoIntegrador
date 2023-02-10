@@ -23,6 +23,10 @@ public class UsuarioLogin {
 
     public void setEmail(String email) { this.email = email; }
 
+    public String getSenha() { return senha; }
+
+    public void setSenha(String senha) { this.senha = senha; }
+
     public String getFoto() { return foto; }
 
     public void setFoto(String foto) { this.foto = foto; }
@@ -35,7 +39,4 @@ public class UsuarioLogin {
 
     public void setToken(String token) { this.token = token; }
 
-    public String getSenha() { return senha; }
-
-    public void setSenha(String senha) { this.senha = senha; }
 }

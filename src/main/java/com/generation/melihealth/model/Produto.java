@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
+
 
 @Entity
 @Table(name = ("tb_produto"))
@@ -32,18 +32,29 @@ public class Produto {
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDate dataFim;
 
-    //chave estrangeira - relação bidirecional
-    @ManyToOne()
+    @ManyToOne
     @JsonIgnoreProperties("produto")
     private Categoria categoria;
-    // Essa variavel será foreingkey
 
-    //chave estrangeira - relação bidirecional
-    @ManyToOne()
+    @ManyToOne
     @JsonIgnoreProperties("produto")
     private Usuario usuario;
-    // Essa variavel será foreingkey
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public Long getId() {
         return id;
@@ -54,7 +65,7 @@ public class Produto {
     }
 
     public String getEspecialidade() {
-        return this.especialidade;
+        return especialidade;
     }
 
     public void setEspecialidade(String especialidade) {
@@ -84,16 +95,4 @@ public class Produto {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-    public Categoria getCategoria() {
-        return this.categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public Usuario getUsuario() { return usuario; }
-
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 }
