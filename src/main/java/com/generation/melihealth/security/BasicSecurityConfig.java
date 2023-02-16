@@ -18,17 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class BasicSecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-        throws Exception{
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .sessionManagement()
@@ -37,13 +26,24 @@ public class BasicSecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                 .requestMatchers(HttpMethod.GET,"/produtos/**").permitAll()
-                .requestMatchers("/usuarios/logar").permitAll()
                 .requestMatchers("/usuarios/cadastrar").permitAll()
+                .requestMatchers("/usuarios/logar").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated())
                 .httpBasic();
 
          return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception{
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
 }
