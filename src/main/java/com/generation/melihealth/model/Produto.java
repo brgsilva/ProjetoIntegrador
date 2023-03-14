@@ -33,7 +33,7 @@ public class Produto {
     @JsonIgnoreProperties("produto")
     private Categoria categoria;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties("produto")
     private Usuario usuario;
 
