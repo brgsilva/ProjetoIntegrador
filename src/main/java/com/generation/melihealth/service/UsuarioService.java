@@ -24,7 +24,7 @@ public class UsuarioService {
     public Optional<Usuario> cadastrarUsuario(Usuario usuario){
 
         if(usuarioRepository.findByEmail(usuario.getEmail()).isPresent()){
-            return Optional.empty();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "E-mail já está em uso") ;
         }
         usuario.setSenha(criptografarSenha(usuario.getSenha()));
         return Optional.of(usuarioRepository.save(usuario));
