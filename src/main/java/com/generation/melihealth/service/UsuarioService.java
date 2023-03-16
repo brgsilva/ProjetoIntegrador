@@ -3,14 +3,11 @@ package com.generation.melihealth.service;
 import com.generation.melihealth.model.Usuario;
 import com.generation.melihealth.model.UsuarioLogin;
 import com.generation.melihealth.repository.UsuarioRepository;
-
+import com.generation.melihealth.service.exceptions.ResponseStatusException;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.nio.charset.Charset;
 import java.util.Optional;
@@ -24,7 +21,7 @@ public class UsuarioService {
     public Optional<Usuario> cadastrarUsuario(Usuario usuario){
 
         if(usuarioRepository.findByEmail(usuario.getEmail()).isPresent()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "E-mail já está em uso") ;
+            throw new ResponseStatusException("E-mail já está em uso");
         }
         usuario.setSenha(criptografarSenha(usuario.getSenha()));
         return Optional.of(usuarioRepository.save(usuario));
@@ -35,7 +32,7 @@ public class UsuarioService {
             Optional<Usuario> buscarUsuario = usuarioRepository.findByEmail(usuario.getEmail());
 
             if((buscarUsuario.isPresent()) && (buscarUsuario.get().getId() != usuario.getId())){
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe", null);
+                throw new ResponseStatusException("Usuário já existe");
             }
             usuario.setSenha(criptografarSenha(usuario.getSenha()));
             return Optional.ofNullable(usuarioRepository.save(usuario));

@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = ("tb_produto"))
@@ -33,9 +35,9 @@ public class Produto {
     @JsonIgnoreProperties("produto")
     private Categoria categoria;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "produto")
     @JsonIgnoreProperties("produto")
-    private Usuario usuario;
+    private List<Usuario> usuario = new ArrayList<>();
 
 
     public Long getId() {
@@ -86,11 +88,11 @@ public class Produto {
         this.categoria = categoria;
     }
 
-    public Usuario getUsuario() {
+    public List<Usuario> getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(List<Usuario> usuario) {
         this.usuario = usuario;
     }
 }
